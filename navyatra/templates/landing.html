@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavYatra - Premium Local Journey Guider</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/bengaluru_natural.png' %}">
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="logo-wrapper" style="width: 50px; height: 50px;">
+                    <div class="logo-circle" style="border-width: 2px;"></div>
+                    <div class="logo-text" style="font-size: 20px;">NY</div>
+                </div>
+                <h1 style="font-size: 24px; font-weight: 700; margin: 0; font-family: var(--font-heading);">NavYatra</h1>
+            </div>
+            <div class="user-meta">
+                <span class="welcome-txt">Welcome, <strong>{{ user.first_name|default:user.username }}</strong></span>
+                <a href="{% url 'logout' %}" class="btn-outline">Sign Out</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="background-image: url('{% static 'images/bengaluru_natural.png' %}');">
+        <div class="hero-vignette"></div>
+        <div class="hero-content">
+            <h4 class="hero-subtitle">Premium AI Travel Guider</h4>
+            <h2 class="hero-title">Discover the Soul of Your Next Destination</h2>
+            <p class="hero-desc">Experience fully optimized local journeys tailored precisely around your budget, timeline, scenery, and spiritual devotion—mapped in seconds by our local Qwen AI model.</p>
+        </div>
+    </section>
+
+    <!-- Main Two-Step Planner Dashboard -->
+    <main class="planner-container">
+        <div class="planner-card">
+            <!-- STEP 1: EXPLORE SPOTS IN AREA -->
+            <div class="step-header">
+                <div class="step-num">1</div>
+                <div class="step-title">
+                    <h2>Explore the Best Local Spots</h2>
+                    <p>Enter any location in India and specific sub-area to reveal top spots & estimated costs.</p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="input-location">Location in India</label>
+                    <input type="text" id="input-location" class="form-input" placeholder="e.g. Bangalore, Mumbai, Coorg" value="Bangalore">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-sub-location">Specific Part of Location (Sub-area)</label>
+                    <input type="text" id="input-sub-location" class="form-input" placeholder="e.g. BTM Layout, Colaba, Madikeri" value="BTM Layout">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn-primary" id="btn-explore" style="padding: 14px;">
+                        Explore Local Spots
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Area Explore Results Placeholder -->
+            <div id="spots-results" style="display: none; margin-top: 30px;"></div>
+
+            <div class="section-divider"></div>
+
+            <!-- STEP 2: GENERATE BUDGET MAP -->
+            <div class="step-header">
+                <div class="step-num">2</div>
+                <div class="step-title">
+                    <h2>Map Your Budget & Days</h2>
+                    <p>Provide your maximum budget and duration. Journeys must span 2+ days with a minimum budget of 10,000 INR.</p>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="input-budget">Journey Budget (INR)</label>
+                    <input type="number" id="input-budget" class="form-input" min="10000" placeholder="Min. 10,000" value="12500">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-days">Journey Duration (Days)</label>
+                    <input type="number" id="input-days" class="form-input" min="2" placeholder="Min. 2" value="3">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn-primary" id="btn-generate" style="padding: 14px;">
+                        Generate Visual Map
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+                            <line x1="9" y1="3" x2="9" y2="18"></line>
+                            <line x1="15" y1="6" x2="15" y2="21"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Budget Visual Map Itinerary Results Placeholder -->
+            <div id="itinerary-results" style="display: none; margin-top: 30px;"></div>
+        </div>
+    </main>
+
+    <!-- Additional Feature section about NavYatra -->
+    <section class="brand-features">
+        <div class="features-container">
+            <h2 class="features-title">Why Explorers Choose NavYatra</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-heading">Hyper-Local Intel</h3>
+                    <p class="feature-text">We drill down to specific sub-layouts like BTM Layout in Bangalore to uncover authentic coffee shops, serene gardens, and neighborhood temples.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-heading">Strict Cost-Mapping</h3>
+                    <p class="feature-text">Our local AI Qwen model guarantees every single scenic walk, hotel stay, spiritual shrine visit, and dinner thali maps 100% within your allocated budget.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🕊️</div>
+                    <h3 class="feature-heading">Balanced Scenarios</h3>
+                    <p class="feature-text">Enjoy curated travel flows balancing local culinary landmarks, breathtaking scenic view points, and deep cultural devotion sites.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <!-- Brand Column -->
+            <div class="footer-col">
+                <div class="header-brand" style="margin-bottom: 20px;">
+                    <div class="logo-wrapper" style="width: 45px; height: 45px; border-color: var(--color-milk);">
+                        <div class="logo-circle" style="border-width: 2px; border-color: var(--color-milk);"></div>
+                        <div class="logo-text" style="font-size: 18px; color: var(--color-milk);">NY</div>
+                    </div>
+                    <h3 style="margin: 0; color: var(--color-crema); font-family: var(--font-heading);">NavYatra</h3>
+                </div>
+                <p>Branded journey mapping solutions powered by secure, local-model machine learning. Charting cost-effective paths through India's rich heritage.</p>
+            </div>
+
+            <!-- Contact Column -->
+            <div class="footer-col">
+                <h3>Contact NavYatra</h3>
+                <p>📍 BTM, Bangalore, 4/11</p>
+                <p>📞 98843762648</p>
+                <p>✉️ <a href="mailto:ramireddy@ny.com">ramireddy@ny.com</a></p>
+            </div>
+
+            <!-- Social Media Column -->
+            <div class="footer-col">
+                <h3>Connect With Us</h3>
+                <p>Follow our travel trails and share your custom visual maps.</p>
+                <div class="social-links">
+                    <!-- Facebook SVG Logo -->
+                    <a href="https://facebook.com" class="social-icon" target="_blank" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 8H7v3h2v9h3v-9h3l.5-3H12V6c0-.88.39-1 1-1h2V2h-3c-2.9 0-5 1.55-5 4.5V8z"/>
+                        </svg>
+                    </a>
+                    <!-- Instagram SVG Logo -->
+                    <a href="https://instagram.com" class="social-icon" target="_blank" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                        </svg>
+                    </a>
+                    <!-- YouTube SVG Logo -->
+                    <a href="https://youtube.com" class="social-icon" target="_blank" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.107C19.53 3.5 12 3.5 12 3.5s-7.53 0-9.388.556a3.003 3.003 0 0 0-2.11 2.107C0 8.018 0 12 0 12s0 3.982.502 5.837a3.003 3.003 0 0 0 2.11 2.107C4.47 20.5 12 20.5 12 20.5s7.53 0 9.388-.556a3.003 3.003 0 0 0 2.11-2.107C24 15.982 24 12 24 12s0-3.982-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 NavYatra Private Limited. All Rights Reserved.</div>
+            <div>Branding & Design System: White & Coffee Suite.</div>
+        </div>
+    </footer>
+
+    <!-- Script Execution -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

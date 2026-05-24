@@ -1,0 +1,1001 @@
+/* ==========================================================================
+   NAVYATRA PREMIUM STYLING SYSTEM (WHITE & COFFEE THEME)
+   ========================================================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap');
+
+:root {
+    /* Precise HSL and Hex Coffee and White Theme Colors */
+    --color-crema: #FCFBF7;       /* Primary Base White */
+    --color-milk: #F4F0E6;        /* Secondary Foam/Cream */
+    --color-latte: #DCD3BF;       /* Accent Light Sand */
+    --color-cappuccino: #9C8469;  /* Muted Warm Brown */
+    --color-espresso: #3E2723;    /* Deep Dark Espresso Primary Branding */
+    --color-coffee-dark: #2F1F17; /* Rich Dark Brown for Text */
+    --color-glass-white: rgba(252, 251, 247, 0.85);
+    
+    /* Typography */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
+    
+    /* Shadows */
+    --shadow-soft: 0 8px 30px rgba(62, 39, 35, 0.05);
+    --shadow-medium: 0 12px 40px rgba(62, 39, 35, 0.09);
+    --shadow-lux: 0 20px 50px rgba(47, 31, 23, 0.15);
+    
+    /* Layout */
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-crema);
+    color: var(--color-coffee-dark);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-espresso);
+    font-weight: 700;
+}
+
+a {
+    color: var(--color-cappuccino);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+a:hover {
+    color: var(--color-espresso);
+}
+
+/* ==========================================================================
+   ENTRY PAGE - SLIDING BACKGROUND & GLASS CARD
+   ========================================================================== */
+
+.entry-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* CSS Keyframe Background Image Slideshow */
+.background-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: scale(1.05);
+    animation: slideAnimation 24s infinite;
+}
+
+.bg-slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.bg-slide:nth-child(2) {
+    animation-delay: 8s;
+}
+
+.bg-slide:nth-child(3) {
+    animation-delay: 16s;
+}
+
+@keyframes slideAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+    5% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 1;
+    }
+    38% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Premium Vignette Overlay */
+.slideshow-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(252,251,247,0.1) 0%, rgba(47,31,23,0.7) 100%);
+    z-index: 2;
+}
+
+/* Entry Form Glassmorphic Card */
+.entry-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 480px;
+    background: var(--color-glass-white);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(220, 211, 191, 0.4);
+    border-radius: var(--border-radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-lux);
+    margin: 20px;
+    transform: translateY(0);
+    animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom NY Logo styling */
+.brand-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo-wrapper {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--color-espresso);
+    border-radius: 50%;
+    animation: rotateCircle 20s linear infinite;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--color-espresso);
+    z-index: 2;
+    transform: skewX(-5deg);
+}
+
+@keyframes rotateCircle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.brand-name {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    color: var(--color-espresso);
+    margin-top: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Tabs switcher */
+.entry-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--color-latte);
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 12px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-cappuccino);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-align: center;
+}
+
+.tab-btn.active {
+    color: var(--color-espresso);
+    border-bottom: 3px solid var(--color-espresso);
+    margin-bottom: -2px;
+}
+
+/* Custom Forms styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-coffee-dark);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--color-latte);
+    border-radius: var(--border-radius-sm);
+    background-color: rgba(252, 251, 247, 0.6);
+    color: var(--color-coffee-dark);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: var(--transition-smooth);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-espresso);
+    background-color: var(--color-crema);
+    box-shadow: 0 0 0 3px rgba(62, 39, 35, 0.08);
+}
+
+/* Submit and Action buttons */
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-coffee-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Message Banners */
+.alert-banner {
+    padding: 12px 16px;
+    border-radius: var(--border-radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.alert-error {
+    background-color: #FDF2F0;
+    border: 1px solid #F0B2A6;
+    color: #962E1A;
+}
+
+.alert-success {
+    background-color: #F4F8F4;
+    border: 1px solid #BCE0BC;
+    color: #276A27;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   LANDING DASHBOARD LAYOUT
+   ========================================================================== */
+
+.app-header {
+    background-color: var(--color-crema);
+    border-bottom: 1px solid var(--color-latte);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-soft);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-txt {
+    font-weight: 500;
+    color: var(--color-coffee-dark);
+}
+
+.welcome-txt strong {
+    color: var(--color-espresso);
+}
+
+.btn-outline {
+    padding: 10px 20px;
+    border: 1px solid var(--color-espresso);
+    background: transparent;
+    color: var(--color-espresso);
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+}
+
+/* Hero Section with Bengaluru Background */
+.hero-section {
+    position: relative;
+    padding: 80px 24px;
+    background-size: cover;
+    background-position: center;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--color-latte);
+}
+
+.hero-vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(252,251,247,0.95) 0%, rgba(252,251,247,0.7) 50%, rgba(47,31,23,0.3) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    animation: fadeIn 1s ease-out;
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-cappuccino);
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-size: 48px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: var(--color-espresso);
+}
+
+.hero-desc {
+    font-size: 18px;
+    color: var(--color-coffee-dark);
+    margin-bottom: 30px;
+}
+
+/* ==========================================================================
+   TWO-STEP TRAVEL FORM SECTION
+   ========================================================================== */
+
+.planner-container {
+    max-width: 1200px;
+    margin: -60px auto 60px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+}
+
+.planner-card {
+    background-color: var(--color-crema);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lux);
+    border: 1px solid var(--color-latte);
+    padding: 40px;
+}
+
+.section-divider {
+    height: 1px;
+    background-color: var(--color-latte);
+    margin: 40px 0;
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.step-num {
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.step-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.step-title p {
+    font-size: 14px;
+    color: var(--color-cappuccino);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: flex-end;
+}
+
+/* ==========================================================================
+   DYNAMIC EXPLORATION SECTION
+   ========================================================================== */
+
+.spots-section {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.spots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.spot-card {
+    background-color: var(--color-milk);
+    border: 1px solid rgba(220, 211, 191, 0.5);
+    border-radius: var(--border-radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.spot-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--color-cappuccino);
+}
+
+.spot-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.spot-category {
+    padding: 4px 12px;
+    background-color: var(--color-latte);
+    color: var(--color-espresso);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.spot-cost {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-cappuccino);
+}
+
+.spot-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.spot-desc {
+    font-size: 14px;
+    color: var(--color-coffee-dark);
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+/* ==========================================================================
+   VISUAL MAP / ITINERARY SECTION
+   ========================================================================== */
+
+.itinerary-section {
+    margin-top: 40px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.itinerary-dashboard-card {
+    background-color: var(--color-milk);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-latte);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.itinerary-summary-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+
+.summary-stat {
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+}
+
+.stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-cappuccino);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-val {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--color-espresso);
+    margin-top: 5px;
+}
+
+.visual-map-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.day-box {
+    background-color: var(--color-crema);
+    border: 1px solid var(--color-latte);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+.day-header {
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.day-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: var(--color-crema);
+}
+
+.day-theme {
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.day-content {
+    padding: 24px;
+}
+
+/* Timeline Activity Styles */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 2px;
+    height: 100%;
+    background-color: var(--color-latte);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    top: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--color-crema);
+    border: 4px solid var(--color-cappuccino);
+    z-index: 2;
+    transition: var(--transition-smooth);
+}
+
+.timeline-item:hover .timeline-marker {
+    border-color: var(--color-espresso);
+    transform: scale(1.1);
+}
+
+.activity-card {
+    background-color: var(--color-crema);
+    border: 1px solid rgba(220, 211, 191, 0.4);
+    border-radius: var(--border-radius-sm);
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(62, 39, 35, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: var(--transition-smooth);
+}
+
+.activity-card:hover {
+    border-color: var(--color-latte);
+    box-shadow: var(--shadow-soft);
+}
+
+.act-time-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.act-time {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-espresso);
+}
+
+.act-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.act-desc {
+    font-size: 13px;
+    color: var(--color-coffee-dark);
+}
+
+.act-cost-badge {
+    align-self: flex-start;
+    padding: 2px 10px;
+    background-color: var(--color-milk);
+    border: 1px solid var(--color-latte);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Stay Info Box */
+.stay-box {
+    margin-top: 20px;
+    border-top: 1px dashed var(--color-latte);
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-milk);
+    margin: 20px -24px -24px -24px;
+    padding: 15px 24px;
+}
+
+.stay-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-coffee-dark);
+}
+
+.stay-title span {
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.stay-cost {
+    font-weight: 700;
+    color: var(--color-espresso);
+}
+
+/* Action row for Visual Map */
+.itinerary-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.btn-download {
+    padding: 16px 36px;
+    background-color: var(--color-espresso);
+    color: var(--color-crema);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: var(--transition-smooth);
+}
+
+.btn-download:hover {
+    background-color: var(--color-coffee-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lux);
+}
+
+/* ==========================================================================
+   FEATURES / BRAND PROFILE
+   ========================================================================== */
+
+.brand-features {
+    background-color: var(--color-milk);
+    border-top: 1px solid var(--color-latte);
+    padding: 80px 24px;
+}
+
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.feature-box {
+    background-color: var(--color-crema);
+    border: 1px solid var(--color-latte);
+    border-radius: var(--border-radius-md);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-milk);
+    border: 2px solid var(--color-espresso);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+    color: var(--color-espresso);
+}
+
+.feature-heading {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.feature-text {
+    font-size: 14px;
+    color: var(--color-coffee-dark);
+}
+
+/* ==========================================================================
+   FOOTER SECTION
+   ========================================================================== */
+
+.app-footer {
+    background-color: var(--color-coffee-dark);
+    color: var(--color-milk);
+    border-top: 4px solid var(--color-espresso);
+    padding: 60px 24px 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h3 {
+    color: var(--color-crema);
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-family: var(--font-heading);
+}
+
+.footer-col p, .footer-col li {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.footer-col a {
+    color: var(--color-milk);
+}
+
+.footer-col a:hover {
+    color: var(--color-latte);
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 15px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-espresso);
+    border: 1px solid var(--color-latte);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-crema);
+    transition: var(--transition-smooth);
+}
+
+.social-icon:hover {
+    background-color: var(--color-milk);
+    color: var(--color-espresso);
+    transform: translateY(-3px);
+}
+
+.social-icon svg {
+    fill: currentColor;
+    width: 18px;
+    height: 18px;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(220, 211, 191, 0.1);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* Spinner Loaders */
+.loader {
+    width: 32px;
+    height: 32px;
+    border: 4px solid var(--color-latte);
+    border-top: 4px solid var(--color-espresso);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 30px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    text-align: center;
+    font-weight: 500;
+    color: var(--color-cappuccino);
+}

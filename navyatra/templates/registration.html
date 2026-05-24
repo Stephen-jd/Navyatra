@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavYatra - Secure Portal</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'images/bengaluru_natural.png' %}">
+    <!-- Premium Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="entry-container">
+        <!-- 3-Image CSS Slide-Fader Background -->
+        <div class="background-slideshow">
+            <div class="bg-slide" style="background-image: url('{% static 'images/travel_bg1.png' %}');"></div>
+            <div class="bg-slide" style="background-image: url('{% static 'images/travel_bg2.png' %}');"></div>
+            <div class="bg-slide" style="background-image: url('{% static 'images/bengaluru_natural.png' %}');"></div>
+        </div>
+        <div class="slideshow-overlay"></div>
+
+        <!-- Premium Login/Register Glass Card -->
+        <div class="entry-card">
+            <div class="brand-logo-container">
+                <div class="logo-wrapper">
+                    <div class="logo-circle"></div>
+                    <div class="logo-text">NY</div>
+                </div>
+                <div class="brand-name">NavYatra</div>
+            </div>
+
+            <!-- Error and Success Banners -->
+            {% if error_message %}
+                <div class="alert-banner alert-error">
+                    <strong>Notice:</strong> {{ error_message }}
+                </div>
+            {% endif %}
+
+            {% if success_message %}
+                <div class="alert-banner alert-success">
+                    <strong>Registration Complete:</strong> {{ success_message }}
+                </div>
+            {% endif %}
+
+            <!-- TABS SWITCHER -->
+            <div class="entry-tabs">
+                <button type="button" class="tab-btn {% if active_tab == 'login' %}active{% endif %}" id="tab-login">Login</button>
+                <button type="button" class="tab-btn {% if active_tab == 'register' %}active{% endif %}" id="tab-register">Register</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form action="{% url 'entry' %}" method="POST" id="form-login" style="display: {% if active_tab == 'login' %}block{% else %}none{% endif %};">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="login" id="action-input">
+                
+                <div class="form-group">
+                    <label class="form-label" for="login-username">Username</label>
+                    <input type="text" name="username" id="login-username" class="form-input" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input type="password" name="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                    Log In
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- REGISTRATION FORM -->
+            <form action="{% url 'entry' %}" method="POST" id="form-register" style="display: {% if active_tab == 'register' %}block{% else %}none{% endif %};">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="register">
+
+                <div class="form-group">
+                    <label class="form-label" for="reg-fullname">Full Name</label>
+                    <input type="text" name="full_name" id="reg-fullname" class="form-input" placeholder="e.g. John Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reg-username">Choose Username</label>
+                    <input type="text" name="username" id="reg-username" class="form-input" placeholder="Choose a unique handle" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reg-email">Email Address</label>
+                    <input type="email" name="email" id="reg-email" class="form-input" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reg-phone">Phone Number</label>
+                    <input type="tel" name="phone" id="reg-phone" class="form-input" placeholder="e.g. +91 9876543210" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="reg-password">Password</label>
+                    <input type="password" name="password" id="reg-password" class="form-input" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                    Submit Registration Request
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script Execution -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
