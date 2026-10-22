@@ -6,10 +6,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 export PATH="/Applications/Ollama.app/Contents/Resources:${PATH:-}"
-export OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5:3b}"
+export OLLAMA_MODEL="${OLLAMA_MODEL:-qwen2.5:latest}"
 export OLLAMA_TIMEOUT_SEC="${OLLAMA_TIMEOUT_SEC:-600}"
 export OLLAMA_KEEP_ALIVE="${OLLAMA_KEEP_ALIVE:-30m}"
-export OLLAMA_KEEP_ALIVE="${OLLAMA_KEEP_ALIVE}"
 
 find_ollama() {
   command -v ollama 2>/dev/null || echo "/Applications/Ollama.app/Contents/Resources/ollama"

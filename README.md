@@ -26,8 +26,8 @@ Open **http://127.0.0.1:8000/entry/** to sign in or register.
 | Item | Value |
 |------|--------|
 | Runtime | [Ollama](https://ollama.com) |
-| Default model | `qwen2.5:3b` (~2 GB, fast on Mac) |
-| Alias | `qwen2.5:latest` → same as 3B after setup |
+| Default model | `qwen2.5:latest` |
+| Compatibility alias | `qwen2.5:3b` → `qwen2.5:latest` after setup |
 | Request timeout | **600 seconds** (server + browser) |
 | Model keep-alive | **30 minutes** (fewer cold starts) |
 
@@ -48,7 +48,7 @@ curl http://127.0.0.1:8000/api/health/
 Example when OK:
 
 ```json
-{"ok": true, "model": "qwen2.5:3b", "timeout_sec": 600}
+{"ok": true, "model": "qwen2.5:latest", "timeout_sec": 600}
 ```
 
 ## Project layout
@@ -69,7 +69,8 @@ NavYatra/
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `OLLAMA_MODEL` | `qwen2.5:3b` | Model name in Ollama |
+| `DJANGO_SECRET_KEY` | Development-only fallback | Django signing key; set a private value before deployment |
+| `OLLAMA_MODEL` | `qwen2.5:latest` | Model name in Ollama |
 | `OLLAMA_TIMEOUT_SEC` | `600` | Max seconds per AI call |
 | `OLLAMA_KEEP_ALIVE` | `30m` | Keep model loaded in RAM |
 | `OLLAMA_API_URL` | `http://127.0.0.1:11434/api/generate` | Ollama generate endpoint |
@@ -81,7 +82,7 @@ NavYatra/
 | “Ollama is not running” | Run `./scripts/start.sh` or `ollama serve` |
 | “Model … is not pulled” | Run `./scripts/setup.sh` |
 | First request slow | Normal — model loads once; later calls are faster |
-| Timeout on itinerary | Use `qwen2.5:3b`, fewer days, or raise `OLLAMA_TIMEOUT_SEC` |
+| Timeout on itinerary | Use fewer days or raise `OLLAMA_TIMEOUT_SEC` |
 
 Ollama logs (when started via script): `/tmp/navyatra-ollama.log`
 

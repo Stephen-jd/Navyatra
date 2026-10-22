@@ -39,11 +39,11 @@ if ! curl -sf http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
   sleep 3
 fi
 
-echo ">>> Pulling Qwen 2.5 (3B — fast, recommended)..."
-"$OLLAMA_BIN" pull qwen2.5:3b
+echo ">>> Pulling Qwen 2.5 (latest stable model)..."
+"$OLLAMA_BIN" pull qwen2.5:latest
 
-echo ">>> Creating alias qwen2.5:latest -> qwen2.5:3b ..."
-"$OLLAMA_BIN" cp qwen2.5:3b qwen2.5:latest 2>/dev/null || true
+echo ">>> Ensuring qwen2.5:3b alias exists for compatibility..."
+"$OLLAMA_BIN" cp qwen2.5:latest qwen2.5:3b 2>/dev/null || true
 
 echo ">>> Python virtual environment..."
 if [[ ! -d ".venv" ]]; then

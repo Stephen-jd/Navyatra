@@ -1,16 +1,21 @@
 import json
+import os
 import urllib.request
-import urllib.error
 
 OLLAMA_API_URL = "http://127.0.0.1:11434/api/generate"
-DEFAULT_MODEL = "qwen2.5:latest"
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:latest")
+DEFAULT_TIMEOUT_SEC = int(os.environ.get("OLLAMA_TIMEOUT_SEC", "600"))
 
 def query_ollama_raw(prompt, system_prompt=None):
     """
     Queries local Ollama API directly. Returns raw text response from Qwen.
     """
+    model_name = DEFAULT_MODEL
+    if model_name == "qwen2.5:3b":
+        model_name = "qwen2.5:latest"
+    timeout_seconds = DEFAULT_TIMEOUT_SEC
     payload = {
-        "model": DEFAULT_MODEL,
+        "model": model_name,
         "prompt": prompt,
         "stream": False,
     }
@@ -19,19 +24,20 @@ def query_ollama_raw(prompt, system_prompt=None):
 
     data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
-        OLLAMA_API_URL, 
-        data=data, 
+        OLLAMA_API_URL,
+        data=data,
         headers={"Content-Type": "application/json"}
     )
-    
+
     try:
-        # Direct call with 180s timeout as a failsafe, although concise prompts will finish in seconds
-        with urllib.request.urlopen(req, timeout=180) as response:
+        with urllib.request.urlopen(req, timeout=timeout_seconds) as response:
             res_body = response.read().decode("utf-8")
             res_json = json.loads(res_body)
             return res_json.get("response", "").strip()
     except Exception as e:
-        raise Exception(f"Ollama local connection error: {str(e)}")
+        raise Exception(
+            f"Ollama local connection error for model '{model_name}' after {timeout_seconds}s: {str(e)}"
+        )
 
 def extract_and_parse_json(response_text):
     """

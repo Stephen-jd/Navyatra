@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from .auth_utils import normalize_approval_password, sync_approved_user
 from .models import RegistrationRequest
 from .import ollama_helper
 
@@ -63,6 +64,18 @@ def entry_view(request):
             else:
                 # First, check if there is an active user
                 user = authenticate(username=username, password=password)
+                if user is None:
+                    approved_request = RegistrationRequest.objects.filter(
+                        username=username,
+                        status='APPROVED',
+                    ).first()
+                    if approved_request and check_password(
+                        password,
+                        normalize_approval_password(approved_request.password),
+                    ):
+                        sync_approved_user(approved_request)
+                        user = authenticate(username=username, password=password)
+
                 if user is not None:
                     if user.is_active:
                         login(request, user)
