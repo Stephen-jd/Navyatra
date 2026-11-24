@@ -7,11 +7,29 @@ from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
+from django.urls import reverse
 from unittest.mock import patch
 
 from .admin import RegistrationRequestAdmin
 from .models import RegistrationRequest
 from .views import entry_view
+
+
+class RegistrationRequestAdminTests(TestCase):
+    def setUp(self):
+        self.admin_user = User.objects.create_superuser(
+            username='admin',
+            email='admin@example.com',
+            password='AdminPass123!',
+        )
+        self.client.force_login(self.admin_user)
+
+    def test_registration_request_changelist_renders(self):
+        response = self.client.get(
+            reverse('admin:navyatra_registrationrequest_changelist')
+        )
+
+        self.assertEqual(response.status_code, 200)
 
 
 class RegistrationApprovalTests(TestCase):
